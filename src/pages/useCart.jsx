@@ -5,7 +5,8 @@ const useCart = () => {
     const [cart, setCart] = useState(getCart());
 
     const addToCart = (item) => {
-        const updatedCart = [...cart, item];
+        const duplicate = [...cart, item];
+        const updatedCart = [...new Set(duplicate)];
         setCart(updatedCart);
         saveCart(updatedCart);
     };
