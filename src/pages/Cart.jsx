@@ -29,6 +29,8 @@ function Cart() {
     const [count, setCount] = useState(1)
 
     const { cart, addToCart, removeFromCart } = useCart();
+    console.log(cart);
+    
 
     // const loadProducts = async () => {
     //     if (loading) return;
