@@ -25,7 +25,7 @@ function Product() {
 
         setLoading(true);
         try {
-            const response = await axios.get('https://df-server.onrender.com/api/products', { params: { page: currentPage, limit: 20 } });
+            const response = await axios.get('/api/products', { params: { page: currentPage, limit: 20 } });
             setProducts((prev) => [...prev, ...(response.data.products || [])]);
             setHasMore(response.data.hasMore);
         } catch (error) {
