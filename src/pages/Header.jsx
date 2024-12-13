@@ -43,6 +43,11 @@ import {
 function Header() {
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const dispatch = useDispatch();
+    
+    function logout() {
+        removeCookie("token")
+    }
+
 
     return (
         <>
@@ -146,7 +151,7 @@ function Header() {
                                             <span>Support</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onClick={logout}>
                                             <LogOut />
                                             <span>Log out</span>
                                         </DropdownMenuItem>
