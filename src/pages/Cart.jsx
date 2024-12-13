@@ -64,7 +64,7 @@ function Cart() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {products.map((element) => {
+                            {matchedProducts.map((element) => {
                                 return (
                                     <TableRow key={element._id}>
                                         <TableCell><img src={image9} className="bg-white h-36 w-40  object-cover" alt="" /></TableCell>
