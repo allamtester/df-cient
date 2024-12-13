@@ -27,7 +27,9 @@ function Cart() {
 
 
     const { cart, addToCart, removeFromCart } = useCart();
-    console.log(cart);
+
+    const cartId = cart.map((element)=>Number(element))
+    console.log(cartId);
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -38,7 +40,7 @@ function Cart() {
                 console.log(products)
                 setMatchedProducts((prev) => [...prev, ...(products.filter(product => cart.includes(product._id)) || [])]);
             } catch (error) {
-                console.log('Error fetching products:', error);
+                console.error('Error fetching products:', error);
             } finally {
                 setLoading(false);
             }
