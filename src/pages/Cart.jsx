@@ -113,6 +113,7 @@ function Cart() {
                                             <Skeleton className="h-5"/>
                                             <Skeleton className="h-5"/>
                                             <Skeleton className="h-5"/>
+                                            <Skeleton className="h-5"/>
                                         </div>
                                     </TableCell>
                                     <TableCell><Skeleton className="w-40 border-2 rounded-full grid grid-cols-3 p-1"/></TableCell>
