@@ -35,6 +35,7 @@ function Cart() {
             try {
                 const response = await axios.get('/api/products');
                 setProducts(response.data.products);
+                console.log(products)
                 setMatchedProducts((prev) => [...prev, ...(products.filter(product => cart.includes(product._id)) || [])]);
             } catch (error) {
                 console.log('Error fetching products:', error);
