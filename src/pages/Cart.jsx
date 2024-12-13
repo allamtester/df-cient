@@ -28,17 +28,12 @@ function Cart() {
 
     const { cart, addToCart, removeFromCart } = useCart();
 
-    const cartId = cart.map((element)=>Number(element))
-    console.log(cartId);
-
     useEffect(() => {
         const loadProducts = async () => {
             setLoading(true);
             try {
-                const response = await axios.get('/api/products');
-                setProducts(response.data.products);
-                console.log(products)
-                setMatchedProducts((prev) => [...prev, ...(products.filter(product => cart.includes(product._id)) || [])]);
+                const response = await axios.get('/api/get-cart');
+                console.log(response)
             } catch (error) {
                 console.error('Error fetching products:', error);
             } finally {
@@ -113,14 +108,14 @@ function Cart() {
                                     <TableCell><Skeleton className="h-36 w-40  " /></TableCell>
                                     <TableCell>
                                         <div className="p-2 flex flex-col gap-2">
-                                            <Skeleton className="h-5"/>
-                                            <Skeleton className="h-5"/>
-                                            <Skeleton className="h-5"/>
-                                            <Skeleton className="h-5"/>
-                                            <Skeleton className="h-5"/>
+                                            <Skeleton className="h-5" />
+                                            <Skeleton className="h-5" />
+                                            <Skeleton className="h-5" />
+                                            <Skeleton className="h-5" />
+                                            <Skeleton className="h-5" />
                                         </div>
                                     </TableCell>
-                                    <TableCell><Skeleton className="w-40 border-2 rounded-full grid grid-cols-3 p-1"/></TableCell>
+                                    <TableCell><Skeleton className="w-40 border-2 rounded-full grid grid-cols-3 p-1" /></TableCell>
                                 </TableRow>
                             )}
                         </TableBody>
