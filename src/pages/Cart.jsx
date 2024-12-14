@@ -40,7 +40,7 @@ function Cart() {
             }
         };
         loadProducts();
-    }, [cart]);
+    }, []);
 
     return (
         <>
@@ -91,11 +91,11 @@ function Cart() {
                                         <TableCell>
                                             <div className="w-40 border-2 rounded-full grid grid-cols-3 p-1">
                                                 <Button className="rounded-full text-lg ">
-                                                    <Minus strokeWidth={4} />
+                                                    <Minus strokeWidth={4} onClick={() => addToCart(element._id)}/>
                                                 </Button>
                                                 <div className=" text-lg flex items-center justify-center font-semibold">{element.quantity}</div>
                                                 <Button className="rounded-full text-lg " >
-                                                    <Plus strokeWidth={4} />
+                                                    <Plus strokeWidth={4} onClick={() => removeFromCart(element._id)}/>
                                                 </Button>
                                             </div>
                                         </TableCell>
