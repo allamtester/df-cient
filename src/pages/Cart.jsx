@@ -93,7 +93,7 @@ function Cart() {
                                                 <Button className="rounded-full text-lg ">
                                                     <Minus strokeWidth={4} />
                                                 </Button>
-                                                <div className=" text-lg flex items-center justify-center font-semibold">0</div>
+                                                <div className=" text-lg flex items-center justify-center font-semibold">{element.quantity}</div>
                                                 <Button className="rounded-full text-lg " >
                                                     <Plus strokeWidth={4} />
                                                 </Button>
