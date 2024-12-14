@@ -31,7 +31,7 @@ function Cart() {
         const loadProducts = async () => {
             setLoading(true);
             try {
-                const response = await axios.post('/api/get-cart', {cart:cart});
+                const response = await axios.post('/api/get-cart', { cart: cart });
                 setProducts(response.data.products)
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -61,13 +61,13 @@ function Cart() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {products.map((element) => {
+                            {products.map((product) => {
                                 return (
-                                    <TableRow key={element._id}>
+                                    <TableRow key={product._id}>
                                         <TableCell><img src={image9} className="bg-white h-36 w-40  object-cover" alt="" /></TableCell>
                                         <TableCell>
                                             <div className="p-2 flex flex-col gap-2">
-                                                <p className="text-xs xs:text-sm md:text-base lg:text-lg">{element.description}</p>
+                                                <p className="text-xs xs:text-sm md:text-base lg:text-lg">{product.description}</p>
                                                 <div className="flex gap-2">
                                                     <div className="flex">
                                                         <Star className="size-3 xs:size-4 md:size-5 text-orange-500 fill-orange-500" fill="true" />
@@ -80,10 +80,10 @@ function Cart() {
                                                 </div>
                                                 <div className="flex gap-2">
                                                     <div className=" text-sm xs:text-base sm:text-lg md:text-xl ">
-                                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', }).format(element.sellingPrice)}
+                                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', }).format(product.sellingPrice)}
                                                     </div>
                                                     <div className=" text-sm xs:text-base sm:text-lg md:text-xl line-through text-gray-700">
-                                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', }).format(element.actualPrice)}
+                                                        {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', }).format(product.actualPrice)}
                                                     </div>
                                                 </div>
                                             </div>
@@ -91,11 +91,11 @@ function Cart() {
                                         <TableCell>
                                             <div className="w-40 border-2 rounded-full grid grid-cols-3 p-1">
                                                 <Button className="rounded-full text-lg ">
-                                                    <Minus strokeWidth={4} onClick={() => removeFromCart(element._id)}/>
+                                                    <Minus strokeWidth={4} onClick={() => removeFromCart(product._id)} />
                                                 </Button>
-                                                <div className=" text-lg flex items-center justify-center font-semibold">{element.quantity}</div>
+                                                <div className=" text-lg flex items-center justify-center font-semibold">{product.quantity}</div>
                                                 <Button className="rounded-full text-lg " >
-                                                    <Plus strokeWidth={4} onClick={() => addToCart(element._id)}/>
+                                                    <Plus strokeWidth={4} onClick={() => addToCart(product._id)} />
                                                 </Button>
                                             </div>
                                         </TableCell>
