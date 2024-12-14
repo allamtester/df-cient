@@ -22,7 +22,6 @@ function Cart() {
 
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-    const [matchedProducts, setMatchedProducts] = useState([])
     // const [count, setCount] = useState(1)
 
 
@@ -33,7 +32,7 @@ function Cart() {
             setLoading(true);
             try {
                 const response = await axios.post('/api/get-cart', {cart:cart});
-                console.log(response)
+                setProducts(response.data.products)
             } catch (error) {
                 console.error('Error fetching products:', error);
             } finally {
