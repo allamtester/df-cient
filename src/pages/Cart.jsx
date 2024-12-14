@@ -32,7 +32,7 @@ function Cart() {
         const loadProducts = async () => {
             setLoading(true);
             try {
-                const response = await axios.post('/api/get-cart', cart);
+                const response = await axios.post('/api/get-cart', {cart:cart});
                 console.log(response)
             } catch (error) {
                 console.error('Error fetching products:', error);
