@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import logo from '/logo.png'
 
 function Footer() {
     return (
@@ -7,7 +8,7 @@ function Footer() {
             <div className="max-w-6xl w-full m-auto">
                 <div className=" grid grid-cols-1  md:grid-cols-[auto_1fr] ">
                     <div className="mx-auto mt-5 md:ml-4 md:mt-10 lg:ml-14 lg:mx-10">
-                        <img src="./logo.png" alt="logo" className="w-16 sm:w-16 md:w-16 lg:w-16" />
+                        <img src={logo} alt="logo" className="w-16 sm:w-16 md:w-16 lg:w-16" />
                     </div>
                     <div className="gap-10 text-xs xs:text-sm flex justify-end  lg:gap-20 xl:gap-28 px-2 py-5  flex-wrap">
                         <div className="">
@@ -43,12 +44,12 @@ function Footer() {
                         <div className="">
                             <Button variant="link"  className="font-medium p-0 text-orange-600">CONTACT US</Button>
                             <div className="pt-1 text-orange-600 flex flex-col pl-2 gap-1">
-                                <div>Bantia Furnitures Pvt Ltd </div>
-                                <div>Corporate Office</div>
-                                <div>Bantia Estates 207, Sikh road</div>
-                                <div>Secunderbad -500003.</div>
-                                <div>Phone: 040-27841562/3/5</div>
-                                <div>Email: bantiaenquiry@gmail.com</div>
+                                <div>Diwan Furnitures Pvt Ltd </div>
+                                <div>xxxyyyyzzz Office</div>
+                                <div>XXXXXXXX YYYY 207, BB road</div>
+                                <div>BBBBBBB -123456.</div>
+                                <div>Phone: 040-1234567890/3/5</div>
+                                <div>Email: example@gmail.com</div>
                             </div>
                         </div>
                     </div>

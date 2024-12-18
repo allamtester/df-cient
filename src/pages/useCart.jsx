@@ -1,30 +1,27 @@
-import { useState } from "react";
-import { getCart, saveCart } from "../utils/localStorage";
+import { useDispatch } from "react-redux";
+import { AuthDailog } from "../redux/slice";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 
 const useCart = () => {
-  const [cart, setCart] = useState(getCart());
+	const dispatch = useDispatch();
+	const [cookies] = useCookies(['token']);
 
-  const addToCart = (productId) => {
-    const objData = { productId, quantity: 1 };
-    let updatedCart = cart.map((product) =>
-      product.productId == objData.productId
-        ? { productId: objData.productId, quantity: product.quantity + objData.quantity }
-        : product
-    );
-    if (!updatedCart.some(item => item.productId === objData.productId)) {
-      updatedCart.push(objData);
-    }
-    saveCart(updatedCart);
-    setCart(updatedCart);
-  };
+	const cartAction = async (productId, action) => {
 
-  const removeFromCart = (id) => {
-    const updatedCart = cart.filter((product) => product.productId !== id);
-    saveCart(updatedCart);
-    setCart(updatedCart);
-  };
+		let result = false
+		if (cookies.token) {
+			const response = await axios.post('/api/cart', {}, { params: { t: Date.now(), productId, action } });
+			result = response?.data?.success ? response.data.success : false;
+			console.log(result);
+			
+		} else {
+			dispatch(AuthDailog(true))
+		}
+		return result;
+	};
 
-  return { cart, addToCart, removeFromCart };
+	return { cartAction };
 };
 
 export default useCart;

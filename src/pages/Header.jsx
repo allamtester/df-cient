@@ -7,13 +7,17 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet";
+import logo from '/logo.png'
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Search, CircleUser, Menu } from 'lucide-react';
 import { useDispatch } from "react-redux";
 import { AuthDailog } from "../redux/slice";
 // import { CartHover } from "../redux/slice";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { useCookies } from 'react-cookie';
+import axios from "axios";
+import { toast } from "sonner"
 import {
     CreditCard,
     LifeBuoy,
@@ -41,13 +45,30 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 function Header() {
+
     const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const dispatch = useDispatch();
-    
-    function logout() {
-        removeCookie("token")
-    }
+    const navigate = useNavigate();
 
+    async function logout(){
+
+        try{
+            const response = await axios.get('/api/logout')
+            console.log(response);
+            if (response.data.success) {
+                toast.success("Success", { description: response.data.success, })
+                removeCookie('token',{path :'/'});
+                delete axios.defaults.headers.common['Authorization'];
+                navigate('/')
+            }else{
+                toast.info("Info", { description: "not logout" })
+            }
+        }catch(error){
+            console.error(error)
+            toast.error("error", { description: 'error', })
+        }finally{
+        }
+    }
 
     return (
         <>
@@ -58,16 +79,15 @@ function Header() {
             <div className="max-w-7xl w-full m-auto ">
                 {/* Header start-------------- */}
                 <div className="p-4 flex justify-between items-center" >
-                    <img src="./logo.png" alt="logo" className="w-12 sm:w-14 md:w-16 lg:w-18" />
+                    <img src={logo} alt="logo" className="w-12 sm:w-14 md:w-16 lg:w-18" />
                     <div className="flex items-center gap-2 md:gap-6 lg:gap-10 max-sm:justify-end">
-                        <div className="w-full flex gap-2 max-sm:hidden ">
+                        <div className="w-full flex sm:gap-2 max-[500px]:hidden ">
                             <NavLink to='/' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Home</NavLink>
                             <NavLink to='/products' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Products</NavLink>
                             <NavLink to='/about' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>About</NavLink>
-                            <NavLink to='/contact' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Contact</NavLink>
                         </div>
                         <Sheet>
-                            <SheetTrigger asChild className="sm:hidden">
+                            <SheetTrigger asChild className="min-[500px]:hidden">
                                 <Button variant="outline" className="py-1 px-2">
                                     <Menu />
                                 </Button>
@@ -81,7 +101,6 @@ function Header() {
                                     <NavLink to='/' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Home</NavLink>
                                     <NavLink to='/products' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Products</NavLink>
                                     <NavLink to='/about' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>About</NavLink>
-                                    <NavLink to='/contact' className={({ isActive }) => isActive ? "text-orange-600 font-semibold cursor-pointer rounded-lg hover:bg-secondary px-4 py-2" : "cursor-pointer rounded-lg hover:bg-secondary px-4 py-2"}>Contact</NavLink>
                                 </div>
                             </SheetContent>
                         </Sheet>
@@ -151,7 +170,7 @@ function Header() {
                                             <span>Support</span>
                                         </DropdownMenuItem>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem onClick={logout}>
+                                        <DropdownMenuItem onClick={() => logout()}>
                                             <LogOut />
                                             <span>Log out</span>
                                         </DropdownMenuItem>
@@ -163,27 +182,31 @@ function Header() {
                                     onClick={() => dispatch(AuthDailog(true))}
                                 />
                             }
-                            <NavLink to='/cart' className={({ isActive }) => isActive ? "text-orange-600" : "text-gray-600"}>
+                            {cookies.token && <NavLink to='/cart' className={({ isActive }) => isActive ? "text-orange-600 relative" : "text-gray-600 relative"}>
+                                <div className="absolute -top-0.5 right-0 bg-orange-500 text-white text-[11px] size-2 rounded-full flex items-center justify-center" ></div>
                                 <ShoppingCart
                                     className="cursor-pointer shrink-0 size-6"
                                     strokeWidth={1.5}
                                 />
-                            </NavLink>
+                            </NavLink>}
                         </div>
                     </div>
                 </div>
                 {/* Header end-------------- */}
-                <div className="flex bg-gray-100 justify-around rounded-t-lg pt-2 mb-4">
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg font-semibold text-orange-600">Sofa</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Living</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Storage</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Bedroom</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Dining</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Study Hall</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Kitchen</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Office</div>
-                    <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Filter</div>
-                </div>
+                <ScrollArea className="w-full">
+                    <div className="flex bg-gray-100 justify-around rounded-t-lg pt-2 mb-4 overflow-x-hidden text-xs xs:text-sm md:text-base">
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg font-semibold text-orange-600">Sofa</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Living</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Storage</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Bedroom</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Dining</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg whitespace-nowrap">Study Hall</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Kitchen</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Office</div>
+                        <div className="py-2 px-4 hover:cursor-pointer hover:bg-white rounded-t-lg ">Filter</div>
+                    </div>
+                    <ScrollBar orientation="horizontal" />
+                </ScrollArea>
                 {/* Main content start-------------- */}
             </div>
         </>

@@ -55,7 +55,6 @@ function Auth() {
                     {auth == 'forget' && <Forget email={email} />}
                 </DialogContent>
             </Dialog>
-            <Toaster position="top-right" richColors />
         </>
     )
 }

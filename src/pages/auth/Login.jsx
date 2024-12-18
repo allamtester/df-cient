@@ -119,7 +119,7 @@ function Login(props) {
                 <div className="grid gap-2 ">
                     <div className="flex items-center justify-between">
                         <Label htmlFor="password">Password <span className='text-red-500'>*</span></Label>
-                        <Button variant="link" className="text-sm h-0 p-0" disabled={loading} onClick={forgotPassword}>
+                        <Button variant="link" className="text-sm h-auto p-0" disabled={loading} onClick={forgotPassword}>
                             {loading1 && <LoaderCircle className="animate-spin" />}Forgot your password?
                         </Button>
                     </div>
