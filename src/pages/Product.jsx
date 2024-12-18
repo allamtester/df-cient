@@ -28,7 +28,7 @@ function Product() {
     };
 
     const loadProducts = async (currentPage) => {
-        if (loading || !hasMore) return;
+        if (!loading || !hasMore) return;
 
         setLoading(true);
         try {
