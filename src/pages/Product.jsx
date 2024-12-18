@@ -15,7 +15,7 @@ function Product() {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
 
@@ -28,7 +28,7 @@ function Product() {
     };
 
     const loadProducts = async (currentPage) => {
-        if (!loading || !hasMore) return;
+        if (loading || !hasMore) return;
 
         setLoading(true);
         try {
@@ -134,7 +134,7 @@ function Product() {
                             )
                         })}
                         {loading &&
-                            Array.from({ length: Math.min(4, products.length) }).map((_, index) => (
+                            Array.from({ length: 8 }).map((_, index) => (
                                 <div className="border hover:scale-105 transition cursor-pointer border-orange-300" key={index}>
                                     <Skeleton className="h-40 xs:h-60 w-full object-cover" />
                                     <div className="p-2 flex flex-col gap-2">
